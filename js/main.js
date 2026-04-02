@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     secondFrame.src = "assets/images/blank_me.png";
     
     gsap.to({}, {
-      duration: 0.6, // Adjust speed of wave here
+      duration: 0.3, // Adjust speed of wave here
       repeat: -1,
       onRepeat: () => {
         isFrameOne = !isFrameOne;
