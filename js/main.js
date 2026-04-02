@@ -48,11 +48,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
       repeat: -1
     });
 
+    // Waving Frame-by-Frame Animation
+    const heroCharImg = document.querySelector(".hero-character");
+    let isFrameOne = true;
+    
+    // Preload the second frame to prevent flickering
+    const secondFrame = new Image();
+    secondFrame.src = "assets/images/blank_me.png";
+    
+    gsap.to({}, {
+      duration: 0.6, // Adjust speed of wave here
+      repeat: -1,
+      onRepeat: () => {
+        isFrameOne = !isFrameOne;
+        heroCharImg.src = isFrameOne ? "assets/images/blank_metwo.png" : "assets/images/blank_me.png";
+      }
+    });
+
     // Integrated Continuous Typing Animation
     // First segment
     gsap.to(".hero-typing-left", {
       text: {
-        value: "Hi ",
+        value: "Hello ",
         delimiter: ""
       },
       duration: 1.2,
@@ -65,7 +82,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Second segment
         gsap.to(".hero-typing-right", {
           text: {
-            value: "I'm Rushali!",
+            value: "I'm Rushali",
             delimiter: ""
           },
           duration: 2.2,
