@@ -38,11 +38,11 @@
       </nav>
       
       <div class="social-links">
-        <a href="mailto:example@gmail.com" target="_blank"><img src="assets/images/Gmail.png" alt="Gmail"></a>
-        <a href="https://youtube.com" target="_blank"><img src="assets/images/Youtube.png" alt="Youtube"></a>
-        <a href="https://x.com" target="_blank"><img src="assets/images/X.png" alt="X"></a>
-        <a href="https://instagram.com" target="_blank"><img src="assets/images/Instagram.png" alt="Instagram"></a>
-        <a href="https://linkedin.com" target="_blank"><img src="assets/images/Linkedin.png" alt="LinkedIn"></a>
+        <a href="mailto:padhiary.rushali@gmail.com" target="_blank"><img src="assets/images/Gmail.png" alt="Gmail"></a>
+        <a href="https://www.youtube.com/@korudrafts" target="_blank"><img src="assets/images/Youtube.png" alt="Youtube"></a>
+        <a href="https://x.com/korudrafts" target="_blank"><img src="assets/images/X.png" alt="X"></a>
+        <a href="https://www.instagram.com/herwhispereddrafts/" target="_blank"><img src="assets/images/Instagram.png" alt="Instagram"></a>
+        <a href="https://www.linkedin.com/in/rushalipadhiary/" target="_blank"><img src="assets/images/Linkedin.png" alt="LinkedIn"></a>
       </div>
     </div>
   </header>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="hero-text-wrapper">
-          <p class="hero-placeholder-text">
+          <p class="hero-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br>
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
@@ -117,10 +117,132 @@
       </div>
     </section>
     
-    <!-- Placeholder Sections for future linking -->
-    <section id="experience" style="min-height: 100vh;"></section>
-    <section id="projects" style="min-height: 100vh;"></section>
+    <!-- Experience Section -->
+    <section id="experience" class="exp-section">
+      <div class="exp-container glass-panel">
+        <div class="exp-sidebar">
+          <button class="exp-tab active" data-target="exp-1">Vector Privacy</button>
+          <button class="exp-tab" data-target="exp-2">PIVX Labs</button>
+          <button class="exp-tab" data-target="exp-3">Computer Science Girlies</button>
+          <button class="exp-tab" data-target="exp-4">InstaSafe</button>
+        </div>
+        
+        <div class="exp-content">
+          <!-- Vector Privacy -->
+          <div id="exp-1" class="exp-panel active-panel">
+            <h3 class="exp-title">Frontend Developer</h3>
+            <p class="exp-date">Jun 2025 - Present</p>
+            <ul class="exp-bullets">
+              <li>Integrated Whisper AI for voice transcription, designed settings and avatar UI/UX, and redesigned emoji system for enhanced user experience.</li>
+            </ul>
+          </div>
+          
+          <!-- PIVX Labs -->
+          <div id="exp-2" class="exp-panel">
+            <h3 class="exp-title">Lead Frontend Developer &rarr; Frontend Developer</h3>
+            <p class="exp-date">Jul 2024 - Nov 2025</p>
+            <ul class="exp-bullets">
+              <li>Engineered Labs Pulse real-time infrastructure monitor and redesigned PIVX Home with data visualizations.</li>
+              <li>Developed PIVX Oracle dashboard with interactive analytics and rebuilt PIVCards platform with animated geo-targeted discovery interface.</li>
+            </ul>
+          </div>
+          
+          <!-- Computer Science Girlies -->
+          <div id="exp-3" class="exp-panel">
+            <h3 class="exp-title">Community Moderator & Technical Project Lead</h3>
+            <p class="exp-date">Mar 2026 - Present</p>
+            <ul class="exp-bullets">
+              <li>Leading development of 'Aristocat,' an open-world game in Godot 4.x with a 3-person team, managing project scope and asset integration.</li>
+              <li>Managing operations for 16K+ global women-in-tech community, coordinating technical workshops and moderation workflows.</li>
+            </ul>
+          </div>
+          
+          <!-- InstaSafe -->
+          <div id="exp-4" class="exp-panel">
+            <h3 class="exp-title">Security Research Apprentice</h3>
+            <p class="exp-date">Dec 2023 - Jan 2024</p>
+            <ul class="exp-bullets">
+              <li>Studied OWASP Top 10 vulnerabilities including SQL Injection, XSS, and CSRF to build security-first development practices.</li>
+              <li>Did case specific evaluation for security measures under senior cybersecurity engineer.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+      <h2 class="section-title text-center">Featured Projects</h2>
+      
+      <!-- Part 1: Carousel -->
+      <div class="projects-carousel">
+        <div class="carousel-track">
+          <div class="video-card">
+            <video src="assets/videos/Pink_Grazer.mp4" muted loop playsinline></video>
+            <div class="video-overlay glass-panel"><h3>Pink Grazer</h3></div>
+          </div>
+          <div class="video-card">
+            <video src="assets/videos/Pop_It.mp4" muted loop playsinline></video>
+            <div class="video-overlay glass-panel"><h3>Pop It</h3></div>
+          </div>
+          <div class="video-card">
+            <video src="assets/videos/Mini_Gameplay.mp4" muted loop playsinline></video>
+            <div class="video-overlay glass-panel"><h3>Mini Gameplay</h3></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Part 2: Grid -->
+      <h2 class="section-title text-center" style="margin-top: 80px;">Other Works</h2>
+      <div class="projects-grid">
+        <!-- Tile 1 -->
+        <div class="project-tile glass-panel tile-left">
+          <div class="project-content">
+            <h3 class="project-title">Labs Oracle</h3>
+            <p class="project-desc">Open-source real-time PIVX price tracker with free developer API delivering accurate market data</p>
+          </div>
+          <a href="#" class="btn-visit">Visit</a>
+          <a href="#" class="btn-icon"><img src="assets/images/Github.png" alt="GitHub" /></a>
+        </div>
+        
+        <!-- Tile 2 -->
+        <div class="project-tile glass-panel tile-right">
+          <div class="project-tag">Private Project</div>
+          <div class="project-content">
+            <h3 class="project-title">PIVCards</h3>
+            <p class="project-desc">Privacy-first crypto gift cards - spend PIV anywhere, from any wallet, completely anonymously</p>
+          </div>
+          <a href="#" class="btn-visit">Visit</a>
+        </div>
+        
+        <!-- Tile 3 -->
+        <div class="project-tile glass-panel tile-left">
+          <div class="project-content">
+            <h3 class="project-title">Labs Pulse</h3>
+            <p class="project-desc">Real-time infrastructure health monitor for the PIVX ecosystem</p>
+          </div>
+          <div class="icon-bottom-right">
+            <a href="#" class="btn-icon pulse-btn"><img src="assets/images/Github.png" alt="GitHub" /></a>
+          </div>
+        </div>
+        
+        <!-- Tile 4 -->
+        <div class="project-tile glass-panel tile-right">
+          <div class="project-content">
+            <h3 class="project-title">Vector Messenger</h3>
+            <p class="project-desc">Decentralized, censorship-resistant messaging platform with zero KYC, no metadata tracking, and lightweight performance (under 200MB RAM)</p>
+          </div>
+          <a href="#" class="btn-visit">Download</a>
+          <a href="#" class="btn-icon"><img src="assets/images/Github.png" alt="GitHub" /></a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <p>Designed and built by Rushali Padhiary</p>
+    <p>All rights reserved. &copy;</p>
+  </footer>
 
   <!-- GSAP Core & Plugins -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
