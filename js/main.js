@@ -298,4 +298,138 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   });
 
+  // --- EXPERIENCE SECTION ---
+  // Background Parallax
+  gsap.fromTo(".exp-section",
+    { backgroundPosition: "50% 0%" },
+    {
+      backgroundPosition: "50% 100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".exp-section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      }
+    }
+  );
+
+  // Tab switching logic
+  const expTabs = document.querySelectorAll('.exp-tab');
+
+  expTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Don't animate if already active
+      if (tab.classList.contains('active')) return;
+
+      const targetId = tab.getAttribute('data-target');
+      const currentActiveTab = document.querySelector('.exp-tab.active');
+      const currentActivePanel = document.querySelector('.exp-panel.active-panel');
+      const newActivePanel = document.getElementById(targetId);
+
+      // Tab UI Update
+      currentActiveTab.classList.remove('active');
+      tab.classList.add('active');
+
+      // GSAP Timeline for smooth panel transition
+      const tl = gsap.timeline();
+      
+      tl.to(currentActivePanel, {
+        opacity: 0,
+        x: -20,
+        duration: 0.2,
+        onComplete: () => {
+          currentActivePanel.classList.remove('active-panel');
+          newActivePanel.classList.add('active-panel');
+          
+          // Before animating in, set correct starting state
+          gsap.set(newActivePanel, { opacity: 0, x: 20 });
+          gsap.set(newActivePanel.querySelectorAll('.exp-bullets li'), { opacity: 0, x: 10 });
+        }
+      })
+      .to(newActivePanel, { opacity: 1, x: 0, duration: 0.3 })
+      .to(newActivePanel.querySelectorAll('.exp-bullets li'), { 
+        opacity: 1, 
+        x: 0, 
+        duration: 0.3, 
+        stagger: 0.1 
+      }, "-=0.1");
+    });
+  });
+
+  // --- PROJECTS SECTION ---
+  // Carousel Video Logic
+  const videoCards = document.querySelectorAll('.video-card');
+  videoCards.forEach(card => {
+    const video = card.querySelector('video');
+    card.addEventListener('mouseenter', () => video.play());
+    card.addEventListener('mouseleave', () => video.pause());
+  });
+
+  // Grid Alternating Entry Animation
+  const tilesLeft = gsap.utils.toArray('.tile-left');
+  tilesLeft.forEach(tile => {
+    gsap.fromTo(tile, 
+      { opacity: 0, x: -100 },
+      {
+        opacity: 1, x: 0, duration: 0.8, ease: "power2.out",
+        scrollTrigger: {
+          trigger: tile,
+          start: "top 85%"
+        }
+      }
+    );
+  });
+
+  const tilesRight = gsap.utils.toArray('.tile-right');
+  tilesRight.forEach(tile => {
+    gsap.fromTo(tile, 
+      { opacity: 0, x: 100 },
+      {
+        opacity: 1, x: 0, duration: 0.8, ease: "power2.out",
+        scrollTrigger: {
+          trigger: tile,
+          start: "top 85%"
+        }
+      }
+    );
+  });
+
+  // Sparkle particle logic on tile hover
+  const gridTiles = document.querySelectorAll('.project-tile');
+  gridTiles.forEach(tile => {
+    tile.addEventListener('mousemove', (e) => {
+      // Throttle particle creation
+      if (Math.random() > 0.1) return;
+      
+      const particle = document.createElement('div');
+      particle.classList.add('sparkle-particle');
+      
+      // Calculate local mouse pos
+      const rect = tile.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Randomize small sizes
+      const size = Math.random() * 6 + 2;
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      
+      tile.appendChild(particle);
+      
+      // Float up and fade out
+      gsap.to(particle, {
+        y: -50,
+        x: (Math.random() - 0.5) * 40,
+        opacity: 0,
+        duration: 1 + Math.random(),
+        ease: "power1.out",
+        onComplete: () => particle.remove()
+      });
+    });
+  });
+
 });
