@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
           initHeroAnimations();
         }
       });
-    }, 2500); 
+    }, 2500);
   });
 
   // INITIALIZE HERO ANIMATIONS 
@@ -51,11 +51,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Waving Frame-by-Frame Animation
     const heroCharImg = document.querySelector(".hero-character");
     let isFrameOne = true;
-    
+
     // Preload the second frame to prevent flickering
     const secondFrame = new Image();
     secondFrame.src = "assets/images/blank_me.png";
-    
+
     gsap.to({}, {
       duration: 0.3, // Adjust speed of wave here
       repeat: -1,
@@ -64,6 +64,85 @@ document.addEventListener("DOMContentLoaded", (event) => {
         heroCharImg.src = isFrameOne ? "assets/images/blank_metwo.png" : "assets/images/blank_me.png";
       }
     });
+
+    // Butterfly Flapping and Coordinated Orbital Animation
+    const allButterflies = document.querySelectorAll(".butterfly");
+    const butterflyFrames = [
+      "assets/images/one.png",
+      "assets/images/two.png",
+      "assets/images/three.png",
+      "assets/images/four.png"
+    ];
+
+    allButterflies.forEach((b, i) => {
+      let frameIndex = i % 4; 
+      gsap.to({}, {
+        duration: 0.08, // Flapping speed
+        repeat: -1,
+        onRepeat: () => {
+          frameIndex = (frameIndex + 1) % 4;
+          b.src = butterflyFrames[frameIndex];
+        }
+      });
+      // Initial defaults
+      gsap.set(b, { xPercent: -50, yPercent: -50, scale: 0.55, opacity: 0 }); // Hide initially before fade-in
+    });
+
+    // Helper math function for criss-cross orbits
+    function calcOrbit(angle, tiltAngle) {
+      const rx = 380;
+      const ry = 90;
+      const xInit = Math.cos(angle) * rx;
+      const yInit = Math.sin(angle) * ry;
+      
+      const c = Math.cos(tiltAngle);
+      const s = Math.sin(tiltAngle);
+
+      const x = xInit * c - yInit * s;
+      const y = xInit * s + yInit * c;
+      const zDepth = Math.sin(angle);
+      return { x, y, zDepth };
+    }
+
+    const setupOrbit = (targetClass, tilt) => {
+      document.querySelectorAll(targetClass).forEach((b, i) => {
+        // Space them exactly 120 degrees apart (Math.PI * 2 / 3)
+        // This guarantees perfect balance: no overlapping, and never all on one side.
+        let orbitObj = { angle: i * (Math.PI * 2 / 3) }; 
+        // Use a static speed for all butterflies on this orbit so they don't lap each other.
+        // We slightly offset speed per orbit so the two orbits drift against each other organically.
+        let speed = targetClass === ".b-orbit-1" ? 10 : 11; 
+        
+        // Initial fade-in 
+        gsap.to(b, { opacity: 1, duration: 1 });
+        
+        gsap.to(orbitObj, {
+          angle: orbitObj.angle + Math.PI * 2,
+          duration: speed,
+          repeat: -1,
+          ease: "none",
+          onUpdate: () => {
+            const pos = calcOrbit(orbitObj.angle, tilt);
+            // vertical bob
+            pos.y += Math.sin(orbitObj.angle * 2 + i) * 20; 
+            const scale = 0.55 + pos.zDepth * 0.15; // Decreased size as requested
+            
+            gsap.set(b, {
+              x: pos.x,
+              y: pos.y,
+              scale: scale,
+              zIndex: pos.zDepth < 0 ? 1 : 3
+            });
+          }
+        });
+      });
+    };
+    
+    // Slanting from right-down to left-top (+ Math.PI / 6)
+    setupOrbit(".b-orbit-1", Math.PI / 6); 
+    
+    // Slanting from left-down to right-top (- Math.PI / 6)
+    setupOrbit(".b-orbit-2", -Math.PI / 6);
 
     // Integrated Continuous Typing Animation
     // First segment
@@ -78,7 +157,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Move cursor gracefully to the second half
         document.querySelector(".hero-typing-left").classList.remove("typing-cursor");
         document.querySelector(".hero-typing-right").classList.add("typing-cursor");
-        
+
         // Second segment
         gsap.to(".hero-typing-right", {
           text: {
@@ -110,27 +189,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
       pupils.forEach((pupil) => {
         const rect = pupil.getBoundingClientRect();
-        
+
         const pupilCenterX = rect.left + rect.width / 2;
         const pupilCenterY = rect.top + rect.height / 2;
-        
+
         const deltaX = mouseX - pupilCenterX;
         const deltaY = mouseY - pupilCenterY;
         const angle = Math.atan2(deltaY, deltaX);
-        
+
         // Strict boundary scaling so it does not bleed out of the eye socket
-        const distance = Math.min(Math.hypot(deltaX, deltaY) / 10, 8); 
-        
+        const distance = Math.min(Math.hypot(deltaX, deltaY) / 10, 8);
+
         const moveX = distance * Math.cos(angle);
         let moveY = distance * Math.sin(angle);
-        
+
         // Prevent googly bulging effect
         if (moveY > 3) moveY = 3;
-        
+
         gsap.to(pupil, {
           x: moveX,
           y: moveY,
-          duration: 0.15, 
+          duration: 0.15,
           ease: "sine.out"
         });
       });
@@ -150,17 +229,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   // ABOUT ME PARALLAX & SCROLL AGGREGATE
   // Parallax of floral.png correctly covering bounds
-  gsap.fromTo(".floral-decor", 
+  gsap.fromTo(".floral-decor",
     { y: -100, opacity: 0 },
     {
-      y: 100, 
+      y: 100,
       opacity: 0.8,
       ease: "none",
       scrollTrigger: {
         trigger: ".about-section",
         start: "top bottom", // Animation begins explicitly when hero ends
         end: "bottom center",
-        scrub: 2 
+        scrub: 2
       }
     }
   );
@@ -177,7 +256,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   // Parallax the portrait image
-  gsap.fromTo(".about-portrait", 
+  gsap.fromTo(".about-portrait",
     { y: 150, opacity: 0 },
     {
       y: 0,
@@ -187,7 +266,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         trigger: ".about-container",
         start: "top 85%",
         end: "center center",
-        scrub: 1.5 
+        scrub: 1.5
       }
     }
   );
