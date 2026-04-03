@@ -22,7 +22,8 @@ body {
   font-family: 'Pixelify Sans', sans-serif;
   background: linear-gradient(135deg, var(--baby-pink) 0%, var(--baby-blue) 100%);
   background-attachment: fixed;
-  color: var(--text-dark); /* Wite */
+  color: var(--text-dark);
+  /* Wite */
   overflow-x: hidden;
   scroll-behavior: smooth;
   min-height: 100vh;
@@ -213,13 +214,15 @@ body {
 
 .social-links {
   display: flex;
-  gap: 0.2rem; /* Reduced space */
+  gap: 0.2rem;
+  /* Reduced space */
   align-items: center;
   margin-left: auto;
 }
 
 .social-links a img {
-  height: 48px; /* Increased size */
+  height: 48px;
+  /* Increased size */
   width: auto;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.1));
@@ -253,7 +256,8 @@ body {
 .hero-character-wrapper {
   position: relative;
   display: flex;
-  align-items: center; /* Horizontally aligns text and character inline */
+  align-items: center;
+  /* Horizontally aligns text and character inline */
   justify-content: center;
   z-index: 10;
   width: 100%;
@@ -262,7 +266,8 @@ body {
 .character-breathing-layer {
   position: relative;
   display: inline-block;
-  margin: 0 10px; /* Slight gap between image and text */
+  margin: 0 10px;
+  /* Slight gap between image and text */
   z-index: 2;
 }
 
@@ -290,7 +295,8 @@ body {
   top: 40%;
   left: 55%;
   transform: translateX(-50%);
-  width: -50px; /* Increased spacing distance between pupils */
+  width: -50px;
+  /* Increased spacing distance between pupils */
   height: 58px;
   display: flex;
   justify-content: space-between;
@@ -388,6 +394,7 @@ body {
 /* About Me Section */
 
 .about-section {
+  top: 50px;
   position: relative;
   min-height: 100vh;
   padding: 100px 5%;
@@ -413,8 +420,9 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  object-fit: cover; /* Ensures it covers the About Me section seamlessly */
+  height: 140%;
+  object-fit: cover;
+  /* Ensures it covers the About Me section seamlessly */
   opacity: 0.8;
   z-index: 1;
   pointer-events: none;
@@ -445,39 +453,95 @@ body {
 .about-portrait {
   width: 100%;
   border-radius: 30px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(255, 105, 180, 0.6), 0 0 18px 4px rgba(255, 105, 180, 0.35);
   transform: translateY(150px);
   opacity: 0;
 }
 
 .about-text-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .about-text-content h2 {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 3rem;
+  margin-bottom: 1.2rem;
   color: var(--text-dark);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
   transform: translateX(50px);
   opacity: 0;
 }
 
+.about-text {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  transform: translateX(50px);
+  opacity: 0;
+}
+
+.highlight-pink {
+  color: var(--baby-pink);
+  font-weight: 600;
+}
+
+.about-text-bottom {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.quote-block {
+  margin: 1.2rem 0;
+  padding: 16px 20px;
+  border-left: 3px solid var(--baby-pink);
+  background: rgba(255, 209, 220, 0.15);
+  border-radius: 0 12px 12px 0;
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.quote-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-dark);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.quote-attribution {
+  font-size: 0.9rem;
+  color: var(--baby-pink);
+  font-weight: 600;
+}
+
+/* Legacy placeholder classes kept for GSAP selector compat */
 .about-placeholder,
 .about-placeholder-bottom {
-  font-size: 1.3rem;
-  line-height: 1.8;
-  margin-bottom: 2rem;
+  font-size: 1.15rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
   color: var(--text-dark);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
   transform: translateX(50px);
   opacity: 0;
 }
 
 .technologies-title {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   font-weight: 700;
+  letter-spacing: 0.05em;
   color: var(--text-dark);
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   transform: translateX(50px);
@@ -635,6 +699,7 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .projects-carousel::-webkit-scrollbar {
   display: none;
 }
@@ -769,6 +834,7 @@ body {
   right: 30px;
   transition: transform 0.3s ease;
 }
+
 .btn-icon img {
   width: 40px;
   height: 40px;
@@ -783,9 +849,11 @@ body {
   bottom: 30px;
   right: 30px;
 }
+
 .icon-bottom-right .btn-icon {
   position: relative;
-  bottom: 0; right: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .project-tag {

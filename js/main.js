@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const pos = calcOrbit(orbitObj.angle, tilt);
             // vertical bob
             pos.y += Math.sin(orbitObj.angle * 2 + i) * 20; 
-            const scale = 0.55 + pos.zDepth * 0.15; // Decreased size as requested
+            const scale = 0.55 + pos.zDepth * 0.15; // Decreased size 
             
             gsap.set(b, {
               x: pos.x,
@@ -168,12 +168,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
           ease: "none",
           onComplete: () => {
 
-            // Cascade the subtext naturally
-            gsap.to(".hero-placeholder-text", {
+            // Cascade the hero subtext naturally
+            gsap.to(".hero-headline", {
               opacity: 1,
               y: -10,
-              duration: 1,
+              duration: 0.8,
               ease: "power2.out"
+            });
+            gsap.to(".hero-body p", {
+              opacity: 1,
+              y: -10,
+              duration: 0.8,
+              stagger: 0.2,
+              ease: "power2.out",
+              delay: 0.2
             });
           }
         });
@@ -271,13 +279,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   );
 
-  // Cascade the text content
-  const aboutTexts = gsap.utils.toArray(".about-text-content h2, .about-placeholder, .technologies-title, .about-placeholder-bottom");
+  // Cascade the text content — covers all new About Me classes
+  const aboutTexts = gsap.utils.toArray([
+    ".about-text-content h2",
+    ".about-text",
+    ".technologies-title",
+    ".quote-block",
+    ".about-text-bottom",
+  ].join(", "));
   gsap.to(aboutTexts, {
     opacity: 1,
     x: 0,
     duration: 0.8,
-    stagger: 0.15,
+    stagger: 0.12,
     ease: "power2.out",
     scrollTrigger: {
       trigger: ".about-container",
