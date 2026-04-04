@@ -589,7 +589,7 @@ body {
   display: flex;
   width: 100%;
   max-width: 1200px;
-  min-height: 450px;
+  min-height: 500px;
   padding: 40px;
   gap: 40px;
   border-radius: 30px;
