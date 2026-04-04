@@ -877,8 +877,9 @@ body {
 }
 
 .btn-visit:hover {
-  background: var(--cyan);
-  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+  background: var(--baby-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(247, 142, 205, 0.4);
 }
 
 .btn-icon {
@@ -889,8 +890,8 @@ body {
 }
 
 .btn-icon img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
 }
 
 .btn-icon:hover {
