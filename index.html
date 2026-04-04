@@ -204,34 +204,53 @@
 
     <!-- Projects Section -->
     <section id="projects" class="projects-section">
-      <h2 class="section-title text-center">Featured Projects</h2>
+      <h2 class="section-title text-center">Projects</h2>
+      <p class="projects-subtitle">Browser-based games built with vanilla JavaScript, HTML5 Canvas, and CSS3, packaged as cross-platform Electron desktop apps, demonstrating canvas rendering, game loop architecture, pixel-art styling, and audio synthesis.</p>
 
-      <!-- Part 1: Carousel -->
-      <div class="projects-carousel">
-        <div class="carousel-track">
-          <div class="video-card">
-            <video src="assets/videos/Pink_Grazer.mp4" muted loop playsinline></video>
-            <div class="video-overlay glass-panel">
-              <h3>Pink Grazer</h3>
+      <!-- Part 1: Game Video Carousel -->
+      <div class="projects-carousel" id="gameCarousel">
+        <div class="carousel-track" id="carouselTrack">
+
+          <!-- Card 1: Pink Grazer -->
+          <div class="video-card" data-index="0">
+            <video src="assets/videos/Pink_Grazer.mp4" muted loop playsinline autoplay></video>
+            <div class="video-hover-overlay">
+              <div class="overlay-content">
+                <h3 class="overlay-title">Pink Grazer</h3>
+                <p class="overlay-desc">Retro arcade game where you dodge enemies and collect power-ups in a pink pixel grid</p>
+                <a href="https://github.com/RushaliPadhiary/Pink-Grazer.git" target="_blank" class="overlay-btn">View on GitHub</a>
+              </div>
             </div>
           </div>
-          <div class="video-card">
-            <video src="assets/videos/Pop_It.mp4" muted loop playsinline></video>
-            <div class="video-overlay glass-panel">
-              <h3>Pop It</h3>
+
+          <!-- Card 2: Infinite Bubble Popper -->
+          <div class="video-card" data-index="1">
+            <video src="assets/videos/Pop_It.mp4" muted loop playsinline autoplay></video>
+            <div class="video-hover-overlay">
+              <div class="overlay-content">
+                <h3 class="overlay-title">Infinite Bubble Popper</h3>
+                <p class="overlay-desc">Relaxing infinite bubble-popping game with pixel art aesthetics and 3 cute themes</p>
+                <a href="https://github.com/RushaliPadhiary/Infinite-Bubble-Popper.git" target="_blank" class="overlay-btn">View on GitHub</a>
+              </div>
             </div>
           </div>
-          <div class="video-card">
-            <video src="assets/videos/Mini_Gameplay.mp4" muted loop playsinline></video>
-            <div class="video-overlay glass-panel">
-              <h3>Mini Gameplay</h3>
+
+          <!-- Card 3: Infinite Bubble Popper -->
+          <div class="video-card" data-index="2">
+            <video src="assets/videos/Mini_Gameplay.mp4" muted loop playsinline autoplay></video>
+            <div class="video-hover-overlay">
+              <div class="overlay-content">
+                <h3 class="overlay-title">Pawper Scissor</h3>
+                <p class="overlay-desc">A cozy pixel-art rock, paper, scissors game with charming match flow and cute pixelated cat assets</p>
+                <a href="https://github.com/RushaliPadhiary/pawper-scissors.git" target="_blank" class="overlay-btn">View on GitHub</a>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
 
       <!-- Part 2: Grid -->
-      <h2 class="section-title text-center" style="margin-top: 80px;">Other Works</h2>
       <div class="projects-grid">
         <!-- Tile 1 -->
         <div class="project-tile glass-panel tile-left">

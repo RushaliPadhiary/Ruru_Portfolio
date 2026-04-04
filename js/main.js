@@ -372,12 +372,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   // --- PROJECTS SECTION ---
-  // Carousel Video Logic
-  const videoCards = document.querySelectorAll('.video-card');
-  videoCards.forEach(card => {
-    const video = card.querySelector('video');
-    card.addEventListener('mouseenter', () => video.play());
-    card.addEventListener('mouseleave', () => video.pause());
+  // Autoplay all game carousel videos
+  document.querySelectorAll('#carouselTrack video').forEach(v => {
+    v.play().catch(() => {});
   });
 
   // Grid Alternating Entry Animation

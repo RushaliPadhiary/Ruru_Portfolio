@@ -687,71 +687,126 @@ body {
 
 /* --- PROJECTS SECTION --- */
 .projects-section {
-  padding: 100px 5%;
+  padding: 50px 5% 100px;
 }
 
+.section-title {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.projects-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.88);
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 40px;
+  line-height: 1.75;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Game Video Carousel */
 .projects-carousel {
-  margin: 40px 0;
+  position: relative;
   width: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 20px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.projects-carousel::-webkit-scrollbar {
-  display: none;
+  margin: 0 auto 60px;
+  right: 25px;
 }
 
 .carousel-track {
   display: flex;
-  gap: 30px;
-  width: max-content;
-  padding: 0 5%;
+  gap: 24px;
 }
 
 .video-card {
-  width: 400px;
-  height: 250px;
-  border-radius: 20px;
-  scroll-snap-align: center;
+  min-width: calc((100% - 48px) / 3);
+  height: 300px;
+  border-radius: 18px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
 }
 
 .video-card video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.video-overlay {
+/* Hover Overlay */
+.video-hover-overlay {
   position: absolute;
-  bottom: -100%;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(5px);
-  transition: bottom 0.3s ease;
+  inset: 0;
+  background: rgba(247, 142, 205, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  border-radius: 18px;
+}
+
+.video-card:hover .video-hover-overlay {
+  opacity: 1;
+}
+
+.overlay-content {
   text-align: center;
+  padding: 20px 30px;
+  max-width: 90%;
+  transform: translateY(10px);
+  transition: transform 0.35s ease;
 }
 
-.video-overlay h3 {
-  color: var(--cyan);
-  font-size: 1.5rem;
+.video-card:hover .overlay-content {
+  transform: translateY(0);
 }
 
-.video-card:hover {
-  transform: scale(1.02);
+.overlay-title {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 8px;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
 }
 
-.video-card:hover .video-overlay {
-  bottom: 0;
+.overlay-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-btn {
+  display: inline-block;
+  padding: 8px 22px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--baby-pink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: all 0.3s ease;
+}
+
+.overlay-btn:hover {
+  background: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.5);
 }
 
 .projects-grid {
