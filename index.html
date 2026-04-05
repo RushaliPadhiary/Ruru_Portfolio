@@ -25,9 +25,26 @@
     </div>
   </div>
 
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-backdrop" id="sidebarBackdrop"></div>
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">&times;</button>
+    <nav class="sidebar-nav">
+      <a href="#home" class="sidebar-link">Home</a>
+      <a href="#about" class="sidebar-link">About Me</a>
+      <a href="#experience" class="sidebar-link">Experience</a>
+      <a href="#projects" class="sidebar-link">Projects</a>
+    </nav>
+  </div>
+
   <!-- Navigation Bar -->
   <header class="glass-nav">
     <div class="nav-container">
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
       <div class="logo">
         <img src="assets/images/Logo.png" alt="Logo" />
       </div>
@@ -209,6 +226,7 @@
       <p class="projects-subtitle">Browser-based games built with vanilla JavaScript, HTML5 Canvas, and CSS3, packaged as cross-platform Electron desktop apps, demonstrating canvas rendering, game loop architecture, pixel-art styling, and audio synthesis.</p>
 
       <!-- Part 1: Game Video Carousel -->
+      <p class="carousel-hint" id="carouselHint">&#11835; scroll horizontal and click on the videos to view it &#11835;</p>
       <div class="projects-carousel" id="gameCarousel">
         <div class="carousel-track" id="carouselTrack">
 

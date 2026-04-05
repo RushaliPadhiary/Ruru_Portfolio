@@ -50,18 +50,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Waving Frame-by-Frame Animation
     const heroCharImg = document.querySelector(".hero-character");
+    const isMobileView = () => window.innerWidth <= 768;
     let isFrameOne = true;
 
-    // Preload the second frame to prevent flickering
-    const secondFrame = new Image();
-    secondFrame.src = "assets/images/blank_me.png";
+    // Preload both sets of frames
+    const secondFrameDesktop = new Image();
+    secondFrameDesktop.src = "assets/images/blank_me.png";
+    const mobileFrame1 = new Image();
+    mobileFrame1.src = "assets/images/mobile_metwo.png";
+    const mobileFrame2 = new Image();
+    mobileFrame2.src = "assets/images/mobile_me.png";
 
     gsap.to({}, {
-      duration: 0.3, // Adjust speed of wave here
+      duration: 0.3,
       repeat: -1,
       onRepeat: () => {
         isFrameOne = !isFrameOne;
-        heroCharImg.src = isFrameOne ? "assets/images/blank_metwo.png" : "assets/images/blank_me.png";
+        if (isMobileView()) {
+          heroCharImg.src = isFrameOne ? "assets/images/mobile_metwo.png" : "assets/images/mobile_me.png";
+        } else {
+          heroCharImg.src = isFrameOne ? "assets/images/blank_metwo.png" : "assets/images/blank_me.png";
+        }
       }
     });
 
@@ -188,30 +197,58 @@ document.addEventListener("DOMContentLoaded", (event) => {
       }
     });
 
-    // Eye Tracking Logic (Constrained securely within boundaries)
+    // Eye Tracking Logic (Character-anchored, immune to viewport shifts)
     const pupils = document.querySelectorAll(".hero-pupil");
+    const charImg = document.querySelector(".hero-character");
+    const isMobile = () => window.innerWidth <= 768;
+
+    // Cache anchor positions relative to the character image
+    // We recompute on resize only — NOT on every mousemove
+    let eyeAnchors = [];
+
+    function computeEyeAnchors() {
+      eyeAnchors = [];
+      const charRect = charImg.getBoundingClientRect();
+      pupils.forEach((pupil) => {
+        const rect = pupil.getBoundingClientRect();
+        // Store center as fraction of char image size so it survives layout reflow
+        eyeAnchors.push({
+          cx: rect.left + rect.width / 2,
+          cy: rect.top + rect.height / 2
+        });
+      });
+    }
+
+    // Initial computation after a short delay (after GSAP sets positions)
+    setTimeout(computeEyeAnchors, 400);
+    window.addEventListener("resize", () => {
+      // Re-anchor after resize settles
+      clearTimeout(window._eyeResizeTimer);
+      window._eyeResizeTimer = setTimeout(computeEyeAnchors, 300);
+    });
 
     window.addEventListener("mousemove", (e) => {
+      if (isMobile()) return; // no tracking on touch devices
+      if (eyeAnchors.length === 0) computeEyeAnchors();
+
       const mouseX = e.clientX;
       const mouseY = e.clientY;
 
-      pupils.forEach((pupil) => {
-        const rect = pupil.getBoundingClientRect();
+      pupils.forEach((pupil, idx) => {
+        const anchor = eyeAnchors[idx];
+        if (!anchor) return;
 
-        const pupilCenterX = rect.left + rect.width / 2;
-        const pupilCenterY = rect.top + rect.height / 2;
-
-        const deltaX = mouseX - pupilCenterX;
-        const deltaY = mouseY - pupilCenterY;
+        const deltaX = mouseX - anchor.cx;
+        const deltaY = mouseY - anchor.cy;
         const angle = Math.atan2(deltaY, deltaX);
 
-        // Strict boundary scaling so it does not bleed out of the eye socket
+        // Strict boundary: max 8px movement radius
         const distance = Math.min(Math.hypot(deltaX, deltaY) / 10, 8);
 
         const moveX = distance * Math.cos(angle);
         let moveY = distance * Math.sin(angle);
 
-        // Prevent googly bulging effect
+        // Prevent googly upward bulge
         if (moveY > 3) moveY = 3;
 
         gsap.to(pupil, {
@@ -441,6 +478,43 @@ document.addEventListener("DOMContentLoaded", (event) => {
         onComplete: () => particle.remove()
       });
     });
+  });
+
+  // =============================================================
+  // HAMBURGER / MOBILE SIDEBAR
+  // =============================================================
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileSidebar = document.getElementById('mobileSidebar');
+  const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+  const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+  const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+  function openSidebar() {
+    mobileSidebar.classList.add('open');
+    sidebarBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden'; // prevent scroll behind sidebar
+  }
+
+  function closeSidebar() {
+    mobileSidebar.classList.remove('open');
+    sidebarBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn.addEventListener('click', () => {
+    if (mobileSidebar.classList.contains('open')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  });
+
+  sidebarCloseBtn.addEventListener('click', closeSidebar);
+  sidebarBackdrop.addEventListener('click', closeSidebar);
+
+  // Close on nav link click (smooth scroll to section)
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', closeSidebar);
   });
 
 });

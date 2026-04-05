@@ -307,7 +307,9 @@ body {
   height: 150px;
   position: relative;
   border-radius: 50%;
-  transition: transform 0.1s ease-out;
+  /* No transition on size — only GSAP handles x/y; prevents resize artifacts */
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .left-pupil {
@@ -982,14 +984,144 @@ body {
   animation: glisten 1.5s ease-out;
 }
 
-/* Responsive */
+/* =============================================================
+   HAMBURGER BUTTON (hidden on desktop, shown on mobile)
+   ============================================================= */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  margin-right: 10px;
+  z-index: 1200;
+  flex-shrink: 0;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* =============================================================
+   MOBILE SIDEBAR DRAWER
+   ============================================================= */
+.mobile-sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1050;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-sidebar-backdrop.open {
+  display: block;
+  opacity: 1;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(160deg, var(--baby-pink) 0%, #c8e9ff 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 4px 0 30px rgba(0,0,0,0.15);
+  z-index: 1100;
+  transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  gap: 10px;
+}
+
+.mobile-sidebar.open {
+  left: 0;
+}
+
+.sidebar-close-btn {
+  align-self: flex-end;
+  background: rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+
+.sidebar-close-btn:hover {
+  background: rgba(255,255,255,0.55);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: 'Pixelify Sans', sans-serif;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: background 0.25s ease, transform 0.2s ease;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+
+.sidebar-link:hover {
+  background: rgba(255,255,255,0.35);
+  transform: translateX(4px);
+}
+
+/* =============================================================
+   CAROUSEL HINT TEXT
+   ============================================================= */
+.carousel-hint {
+  text-align: center;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  animation: hintBlink 1.4s ease-in-out infinite;
+}
+
+@keyframes hintBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* =============================================================
+   RESPONSIVE — 1200px (large tablets / small laptops)
+   ============================================================= */
 @media (max-width: 1200px) {
   .hero-character {
     width: 500px;
-  }
-
-  .eyes-container {
-    width: 100px;
   }
 
   .hero-typing-left,
@@ -998,32 +1130,368 @@ body {
   }
 }
 
-@media (max-width: 900px) {
-  .nav-links {
-    display: none;
+/* =============================================================
+   RESPONSIVE — 768px MOBILE BREAKPOINT
+   ============================================================= */
+@media (max-width: 768px) {
+
+  /* --- NAV --- */
+  .hamburger-btn {
+    display: flex;
   }
 
-  .about-container {
-    flex-direction: column;
-    text-align: center;
+  .nav-links {
+    display: none !important;
+  }
+
+  .logo img {
+    height: 52px;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+
+  .social-links {
+    gap: 0;
+  }
+
+  .social-links a img {
+    height: 32px;
+  }
+
+  .glass-nav {
+    padding: 8px 16px;
+  }
+
+  /* --- HERO SECTION --- */
+  .hero-section {
+    padding-top: 80px;
+    min-height: auto;
+    padding-bottom: 40px;
   }
 
   .hero-character-wrapper {
     flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
 
   .hero-character {
-    width: 100%;
-    max-width: 400px;
+    width: 90vw;
+    max-width: 320px;
   }
 
+  /* Pupils hidden on mobile as they are part of the image now */
   .eyes-container {
-    width: 80px;
-    top: 32%;
+    display: none;
   }
 
-  .hero-pupil {
-    width: 30px;
-    height: 30px;
+  /* Typing text — smaller to fit mobile */
+  .hero-typing-left {
+    position: static;
+    font-size: 2.6rem;
+    margin: 0;
+    text-align: center;
+    white-space: normal;
+    padding: 0 10px;
+    order: 2;
+  }
+
+  .hero-typing-right {
+    position: static;
+    font-size: 2.6rem;
+    margin: 0;
+    text-align: center;
+    white-space: normal;
+    padding: 0 10px;
+    order: 3;
+  }
+
+  .character-breathing-layer {
+    order: 1;
+    margin: 0;
+  }
+
+  .hero-text-wrapper {
+    margin-top: 20px;
+    padding: 0 16px;
+  }
+
+  .hero-headline {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-body p {
+    font-size: 1rem;
+  }
+
+  /* --- ABOUT ME --- */
+  .about-section {
+    padding: 60px 16px 120px; /* Increased bottom padding for more gap */
+    min-height: auto;
+  }
+
+  .floral-decor {
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+  }
+
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 20px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about-image-wrapper {
+    flex: none;
+    width: 180px;
+  }
+
+  .about-portrait {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .about-text-content {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-text-content h2 {
+    font-size: 2rem;
+    text-align: center;
+    transform: none;
+  }
+
+  .about-text,
+  .about-text-bottom {
+    font-size: 0.95rem;
+    text-align: center;
+    transform: none;
+  }
+
+  .technologies-title {
+    transform: none;
+    text-align: center;
+  }
+
+  .skills-container {
+    justify-content: center;
+  }
+
+  .skill-bubble {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    transform: none !important;
+  }
+
+  .quote-block {
+    transform: none;
+    text-align: left;
+  }
+
+  /* --- EXPERIENCE --- */
+  .exp-section {
+    padding: 60px 12px;
+    min-height: auto;
+  }
+
+  .exp-container {
+    flex-direction: column;
+    gap: 0;
+    padding: 20px 16px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .exp-sidebar {
+    flex-direction: row;
+    flex-wrap: nowrap; /* Vertical wrap disabled for horizontal scroll */
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    padding-bottom: 12px;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+    justify-content: flex-start;
+  }
+
+  .exp-sidebar::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+
+  .exp-tab {
+    border-left: none;
+    border-bottom: 4px solid transparent;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 8px;
+  }
+
+  .exp-tab.active {
+    border-left: none;
+    border-bottom-color: var(--baby-pink);
+    font-size: 0.95rem;
+  }
+
+  .exp-content {
+    padding-top: 20px;
+    overflow: hidden;
+  }
+
+  .exp-panel {
+    position: static;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .exp-panel.active-panel {
+    display: block;
+  }
+
+  .exp-title {
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+
+  .exp-bullets li {
+    font-size: 0.95rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* --- PROJECTS --- */
+  .projects-section {
+    padding: 40px 12px 60px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .projects-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  /* Carousel — horizontally scrollable, no scrollbar shown */
+  .projects-carousel {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    right: 0;
+    margin-bottom: 32px;
+    padding-bottom: 4px;
+  }
+
+  .projects-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 14px;
+    width: max-content;
+  }
+
+  .video-card {
+    min-width: 240px;
+    height: 180px;
+    flex-shrink: 0;
+  }
+
+  .video-card:active .video-hover-overlay {
+    opacity: 1;
+  }
+
+  .overlay-content {
+    padding: 10px 15px;
+  }
+
+  .overlay-title {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .overlay-desc {
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .overlay-btn {
+    padding: 6px 16px;
+    font-size: 0.75rem;
+  }
+
+  /* Projects Grid — single column */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 100%;
+  }
+
+  .project-tile {
+    height: auto;
+    min-height: 220px;
+    padding: 24px 20px 80px; /* bottom padding reserves space for buttons */
+    border-radius: 20px;
+  }
+
+  .project-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .btn-visit {
+    bottom: 20px;
+    left: 20px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+
+  .btn-icon {
+    bottom: 16px;
+    right: 20px;
+  }
+
+  .btn-icon img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .project-tag {
+    top: 16px;
+    right: 16px;
+    font-size: 0.75rem;
+  }
+
+  /* --- FOOTER --- */
+  .site-footer {
+    margin-top: 40px;
+  }
+
+  .site-footer p {
+    font-size: 0.9rem;
   }
 }
