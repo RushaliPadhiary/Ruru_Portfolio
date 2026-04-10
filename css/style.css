@@ -302,6 +302,10 @@ body {
   z-index: 5;
 }
 
+body.touch-device .eyes-container {
+  display: none !important;
+}
+
 .hero-pupil {
   width: 180px;
   height: 150px;
@@ -687,7 +691,7 @@ body {
 
 /* --- PROJECTS SECTION --- */
 .projects-section {
-  padding: 50px 5% 100px;
+  padding: 100px 5%;
 }
 
 .section-title {
@@ -718,6 +722,25 @@ body {
   width: 100%;
   margin: 0 auto 60px;
   right: 25px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--baby-pink) rgba(255, 255, 255, 0.2);
+  padding-bottom: 15px;
+}
+
+.projects-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.projects-carousel::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+.projects-carousel::-webkit-scrollbar-thumb {
+  background: var(--baby-pink);
+  border-radius: 10px;
 }
 
 .carousel-track {
@@ -824,7 +847,8 @@ body {
   border-radius: 30px;
   padding: 40px;
   position: relative;
-  height: 300px;
+  height: auto;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1109,11 +1133,31 @@ body {
   letter-spacing: 0.04em;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
   animation: hintBlink 1.4s ease-in-out infinite;
+  transition: opacity 0.4s ease, height 0.4s ease;
+}
+
+.carousel-hint.hide-hint {
+  opacity: 0;
+  height: 0;
+  margin-bottom: 0;
+  pointer-events: none;
 }
 
 @keyframes hintBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
+}
+
+/* =============================================================
+   RESPONSIVE — 2560px 4K SCREENS
+   ============================================================= */
+@media (min-width: 2560px) {
+  html {
+    font-size: 1.35vw;
+  }
+  .nav-container, .about-container, .exp-container, .projects-grid {
+    max-width: 2200px;
+  }
 }
 
 /* =============================================================
@@ -1124,17 +1168,34 @@ body {
     width: 500px;
   }
 
-  .hero-typing-left,
+  .hero-typing-left {
+    font-size: 4rem;
+    margin-right: 250px;
+  }
+
   .hero-typing-right {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    margin-left: 130px;
+  }
+
+  .hero-pupil {
+    width: 128px;
+    height: 107px;
+  }
+
+  .left-pupil {
+    left: -2px;
+  }
+
+  .right-pupil {
+    right: 42px;
   }
 }
 
 /* =============================================================
-   RESPONSIVE — 768px MOBILE BREAKPOINT
+   RESPONSIVE — 1024px TABLET BREAKPOINT
    ============================================================= */
-@media (max-width: 768px) {
-
+@media (max-width: 1024px) {
   /* --- NAV --- */
   .hamburger-btn {
     display: flex;
@@ -1145,11 +1206,86 @@ body {
   }
 
   .logo img {
-    height: 52px;
+    height: 60px;
   }
 
   .logo {
     margin-right: auto;
+  }
+
+  .glass-nav {
+    padding: 8px 16px;
+  }
+
+  /* --- ABOUT ME --- */
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .about-text-content h2, .about-text, .about-text-bottom {
+    transform: none;
+    text-align: center;
+  }
+
+  .technologies-title {
+    transform: none;
+    text-align: center;
+  }
+
+  .skills-container {
+    justify-content: center;
+  }
+  
+  .quote-block {
+    transform: none;
+  }
+
+  /* --- HERO --- */
+  .hero-character {
+    width: 400px;
+  }
+  .hero-typing-left {
+    font-size: 3rem;
+    margin-right: 200px;
+  }
+  .hero-typing-right {
+    font-size: 2.5rem;
+    margin-left: 110px;
+  }
+
+  /* Adjust pupil scale for 400px character */
+  .hero-pupil {
+    width: 102px;
+    height: 85px;
+  }
+  .left-pupil {
+    left: -1px;
+  }
+  .right-pupil {
+    right: 32px;
+  }
+
+  .eyes-container {
+    height: 48px;
+  }
+
+  /* Project tiles text fit */
+  .project-tile {
+    padding-bottom: 80px; 
+  }
+}
+
+/* =============================================================
+   RESPONSIVE — 768px MOBILE BREAKPOINT
+   ============================================================= */
+@media (max-width: 768px) {
+
+  /* --- NAV --- */
+  .logo img {
+    height: 52px;
   }
 
   .social-links {
@@ -1158,10 +1294,6 @@ body {
 
   .social-links a img {
     height: 32px;
-  }
-
-  .glass-nav {
-    padding: 8px 16px;
   }
 
   /* --- HERO SECTION --- */
@@ -1493,5 +1625,30 @@ body {
 
   .site-footer p {
     font-size: 0.9rem;
+  }
+}
+
+/* =============================================================
+   RESPONSIVE — 425px & 320px SMALL DEVICES
+   ============================================================= */
+@media (max-width: 425px) {
+  .sidebar-link {
+    font-size: 1.2rem;
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .sidebar-link {
+    font-size: 1.1rem;
+  }
+  .social-links a img {
+    height: 24px;
+  }
+  .logo img {
+    height: 42px;
+  }
+  .hamburger-btn {
+    margin-right: 5px;
   }
 }

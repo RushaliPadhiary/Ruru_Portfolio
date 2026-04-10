@@ -50,7 +50,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Waving Frame-by-Frame Animation
     const heroCharImg = document.querySelector(".hero-character");
-    const isMobileView = () => window.innerWidth <= 768;
+    const checkIsTouchOrMobile = () => {
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+      const isSmallScreen = window.innerWidth <= 1024;
+      if (isTouch) {
+        document.body.classList.add('touch-device');
+      } else {
+        document.body.classList.remove('touch-device');
+      }
+      return isTouch || isSmallScreen;
+    };
+    
+    // Initially check touch class setup
+    checkIsTouchOrMobile();
     let isFrameOne = true;
 
     // Preload both sets of frames
@@ -66,7 +78,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       repeat: -1,
       onRepeat: () => {
         isFrameOne = !isFrameOne;
-        if (isMobileView()) {
+        if (checkIsTouchOrMobile()) {
           heroCharImg.src = isFrameOne ? "assets/images/mobile_metwo.png" : "assets/images/mobile_me.png";
         } else {
           heroCharImg.src = isFrameOne ? "assets/images/blank_metwo.png" : "assets/images/blank_me.png";
@@ -200,7 +212,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Eye Tracking Logic (Character-anchored, immune to viewport shifts)
     const pupils = document.querySelectorAll(".hero-pupil");
     const charImg = document.querySelector(".hero-character");
-    const isMobile = () => window.innerWidth <= 768;
+    const isMobile = () => checkIsTouchOrMobile();
 
     // Cache anchor positions relative to the character image
     // We recompute on resize only — NOT on every mousemove
@@ -479,6 +491,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
       });
     });
   });
+
+  // =============================================================
+  // CAROUSEL OVERFLOW HINT LOGIC
+  // =============================================================
+  const carouselTrack = document.getElementById('carouselTrack');
+  const carouselHint = document.getElementById('carouselHint');
+  const gameCarousel = document.getElementById('gameCarousel');
+  
+  if (carouselTrack && carouselHint && gameCarousel) {
+    const checkCarouselOverflow = () => {
+      // Allow minor threshold of 5px to avoid floating point math rounding issues
+      if (carouselTrack.scrollWidth <= gameCarousel.clientWidth + 5) {
+        carouselHint.classList.add('hide-hint');
+      } else {
+        carouselHint.classList.remove('hide-hint');
+      }
+    };
+    
+    checkCarouselOverflow();
+    window.addEventListener('resize', checkCarouselOverflow);
+  }
 
   // =============================================================
   // HAMBURGER / MOBILE SIDEBAR
