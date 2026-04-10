@@ -398,7 +398,6 @@ body.touch-device .eyes-container {
 /* About Me Section */
 
 .about-section {
-  top: 50px;
   position: relative;
   min-height: 100vh;
   padding: 100px 5%;
@@ -647,9 +646,6 @@ body.touch-device .eyes-container {
 .exp-panel {
   display: none;
   opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
 }
 
@@ -1055,8 +1051,8 @@ body.touch-device .eyes-container {
 .mobile-sidebar {
   position: fixed;
   top: 0;
-  left: -280px;
-  width: 260px;
+  left: -100%;
+  width: 320px;
   height: 100vh;
   background: linear-gradient(160deg, var(--baby-pink) 0%, #c8e9ff 100%);
   backdrop-filter: blur(20px);
@@ -1158,6 +1154,117 @@ body.touch-device .eyes-container {
   .nav-container, .about-container, .exp-container, .projects-grid {
     max-width: 2200px;
   }
+  .hero-text-wrapper {
+    max-width: 2000px;
+  }
+  .projects-subtitle {
+    max-width: 1600px;
+  }
+  /* Loader sizing */
+  .holographic-loader {
+    width: 1200px;
+    height: 1200px;
+  }
+  .loader-character {
+    width: 600px;
+  }
+
+  .hero-section {
+    min-height: 70vh;
+    padding: 200px 5% 80px 5%; /* Spaced downward */
+  }
+  .about-section, .exp-section {
+    min-height: 70vh;
+    padding: 80px 5%;
+  }
+  .hero-character {
+    width: 900px;
+  }
+
+  /* Pupil up-scale */
+  .hero-pupil {
+    width: 240px;
+    height: 200px;
+  }
+  .left-pupil {
+    left: -7px; 
+  }
+  .right-pupil {
+    right: 85px; 
+  }
+  .eyes-container {
+    height: 75px;
+  }
+  .logo img {
+    height: 120px;
+  }
+  .glass-nav {
+    padding: 20px 60px;
+  }
+  .social-links a img {
+    height: 80px;
+  }
+  
+  /* Experience Section */
+  .exp-container {
+    min-height: 800px;
+    padding: 60px;
+  }
+  .exp-sidebar {
+    width: 450px;
+  }
+  .exp-tab {
+    padding: 25px 30px;
+    font-size: 1.2rem;
+  }
+  .exp-tab.active {
+    font-size: 1.4rem;
+  }
+  
+  .exp-bullets {
+    padding-left: 35px;
+  }
+  .exp-bullets li::before {
+    left: -30px;
+  }
+
+  /* Video Carousel Height */
+  .video-card {
+    height: 500px;
+  }
+
+  /* Project Tile Fits */
+  .project-tile {
+    padding: 60px;
+    padding-bottom: 160px;
+  }
+  .btn-visit {
+    bottom: 50px;
+    left: 60px;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+  }
+  .btn-icon {
+    bottom: 50px;
+    right: 60px;
+  }
+  .btn-icon img {
+    width: 110px;
+    height: 110px;
+  }
+  .project-tag {
+    top: 50px;
+    right: 60px;
+    font-size: 1.4rem;
+    padding: 10px 25px;
+  }
+  .project-title {
+    font-size: 2.3rem;
+    margin-bottom: 25px;
+  }
+  .project-desc {
+    font-size: 1.4rem;
+  }
 }
 
 /* =============================================================
@@ -1217,12 +1324,30 @@ body.touch-device .eyes-container {
     padding: 8px 16px;
   }
 
+  /* --- SPACING & HERO RELATIVE SIZES --- */
+  .hero-section, .about-section {
+    min-height: auto;
+  }
+
+  .hero-section {
+    padding-bottom: 20px;
+  }
+
   /* --- ABOUT ME --- */
+  .about-section {
+    padding-top: 40px;
+  }
+
   .about-container {
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 30px;
+  }
+
+  .about-image-wrapper {
+    flex: none;
+    width: 250px;
   }
 
   .about-text-content h2, .about-text, .about-text-bottom {
@@ -1290,6 +1415,7 @@ body.touch-device .eyes-container {
 
   .social-links {
     gap: 0;
+    padding-right: 15px;
   }
 
   .social-links a img {
@@ -1641,6 +1767,12 @@ body.touch-device .eyes-container {
 @media (max-width: 320px) {
   .sidebar-link {
     font-size: 1.1rem;
+  }
+  .glass-nav {
+    padding: 8px 10px;
+  }
+  .social-links {
+    padding-right: 5px;
   }
   .social-links a img {
     height: 24px;
